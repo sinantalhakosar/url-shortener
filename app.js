@@ -59,9 +59,7 @@ const run = async () => {
   const url1 = await UrlService.createURL({
     long_url: "www.google.com.tr",
     short_url: "googleTR",
-  });
-
-  await UserService.addURL(user1.user_id, url1.url_id);
+  }, user1);
 };
 
 //db.sequelize.sync();
