@@ -25,7 +25,7 @@ module.exports = (sequelize, Sequelize) => {
         timestamps: false
     });
 
-    function encodePassword(user) {
+    encodePassword = (user) => {
         if (user === null) {
             throw new Error('User not found');
         }
