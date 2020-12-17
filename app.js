@@ -46,8 +46,31 @@ app.use(function(err, req, res, next) {
 });
 
 const db = require("./models");
+const UserService = require("./services/user.services");
+const UrlService = require("./services/url.services");
+
+const run = async () => {
+  const user1 = await UserService.createUser({
+    username: "User1",
+    password: "deneme",
+    email: "user@urlshortener.com",
+  });
+
+  const url1 = await UrlService.createURL({
+    long_url: "www.google.com.tr",
+    short_url: "googleTR",
+  });
+
+  await UserService.addURL(user1.user_id, url1.url_id);
+};
+
 //db.sequelize.sync();
-// For development
-db.sequelize.sync({ force: true,logging: console.log });
+//For development
+db.sequelize.sync({ force: true}).then(() => {
+  console.log("Drop and re-sync db.");
+  run();
+});
+
+
 
 module.exports = app;

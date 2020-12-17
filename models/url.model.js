@@ -1,6 +1,6 @@
 const { DataTypes } = require("sequelize");
 module.exports = (sequelize, Sequelize) => {
-    const URL = sequelize.define("url", {
+    const URL = sequelize.define("urls", {
         url_id: {
             primaryKey: true,
             type: DataTypes.UUID,
