@@ -16,3 +16,15 @@ module.exports.createUser = (user) => {
         console.log(">> Error while creating User: ", err);
       });
 };
+
+module.exports.findUserById = (user_id) => {
+  return User.findByPk(user_id).then((user)=> {
+    if (!user) {
+        return 'User not found';
+    }
+    return user;
+ })
+  .catch((err) => {
+    console.log(">> Error while finding User: ", err);
+  });
+};

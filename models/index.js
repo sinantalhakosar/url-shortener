@@ -24,13 +24,14 @@ db.url = require("./url.model.js")(sequelize, Sequelize);
 
 db.url.belongsToMany(db.user, {
   through: "user_url",
-  as: "user",
+  as: "users",
   foreignKey: "url_id",
 });
 db.user.belongsToMany(db.url, {
   through: "user_url",
-  as: "url",
+  as: "urls",
   foreignKey: "user_id",
+  onDelete: 'CASCADE'
 });
 
 module.exports = db;
