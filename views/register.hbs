@@ -14,13 +14,18 @@
     <div class="limiter">
 		<div class="container-login100" style="width: 100%;height: 100vh;background: url(../images/hero-bg.jpg) top center;background-size: cover;">
 			<div class="wrap-login100">
-				<form class="login100-form validate-form" action="/login/enter/" method="post">
+                {{#if message}}
+            <div class="alert {{messageClass}}" role="alert">
+                {{message}}
+            </div>
+        {{/if}}
+				<form class="login100-form validate-form" action="/register/" method="post">
 					<span class="login100-form-logo">
 						<i class="zmdi zmdi-account-add"></i>
 					</span>
 
 					<span class="login100-form-title p-b-34 p-t-27">
-						Register
+						{{result}}
 					</span>
 
 					<div class="wrap-input100 validate-input" data-validate = "Enter username">
@@ -29,17 +34,17 @@
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="Enter password">
-						<input class="input100" type="password" name="pass" placeholder="Password" required minlength="8">
+						<input class="input100" type="password" name="pass" placeholder="Password" required minlength="3">
 						<span class="focus-input100" data-placeholder="&#xf191;"></span>
 					</div>
 
                     <div class="wrap-input100 validate-input" data-validate="Enter email">
-						<input class="input100" type="text" name="email" placeholder="Email" required minlength="8">
+						<input class="input100" type="text" name="email" placeholder="Email" required minlength="3">
 						<span class="focus-input100" data-placeholder="&#xf15a;"></span>
 					</div>
 
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">
+                        <button class="login100-form-btn" type="submit">
 							Register
 						</button>
 					</div>
