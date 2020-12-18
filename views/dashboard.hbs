@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Basic Page Needs==================================================-->
+    <title>Job Stock - Responsive Job Portal Bootstrap Template</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- CSS==================================================-->
+    <link rel="stylesheet" href="/stylesheets/plugins.css">
+    <link href="/stylesheets/dashboard_style.css" rel="stylesheet">
+    <link href="/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        ::-webkit-input-placeholder {
+   text-align: center;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   text-align: center;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   text-align: center;  
+}
+
+:-ms-input-placeholder {  
+   text-align: center; 
+}
+  .btn-get-started {
+   width:100%;
+   height:52px;
+   border-radius:2px;
+   font-size:16px;
+   background:#1852bd;
+   border:1px solid #1852bd;
+   color: #fff;
+  }
+  
+  .btn-get-started:hover {
+    background: none;
+    border: 2px solid #fff;
+    color: #fff;
+  }
+
+  .btn-get-started-2 {
+   width:100%;
+   height:52px;
+   border-radius:2px;
+   font-size:16px;
+   background:#2c910e;
+   border:1px solid #2c910e;
+   color: #fff;
+  }
+  
+  .btn-get-started-2:hover {
+    background: none;
+    border: 2px solid #000;
+    color: #000;
+  }
+
+    </style>
+</head>
+<body>
+<div class="Loader"></div>
+<div class="wrapper">
+   
+    <div class="clearfix"></div>
+    <div class="banner" style="width: 100%;height: 100vh;background: url(../images/hero-bg.jpg) top center;background-size: cover;padding-top:0% !important;">
+        <div class="container">
+            <div class="banner-caption">
+                <div class="col-md-12 col-sm-12 banner-text">
+                   <h1>Shorten URLs</h1>
+                    <form class="form-horizontal" style="display: flex;justify-content:center">
+                        <div class="col-md-6 no-padd">
+                            <div class="input-group"><input type="text" class="form-control right-bor" id="joblist"
+                                                            placeholder="Paste the Long Url Here..."></div>
+                        </div>
+                        
+                        
+                        <div class="col-md-2 no-padd">
+                            <div class="input-group">
+                                <button type="submit" class="btn-get-started">Shorten URL</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div style="overflow-y: scroll; height:400px;padding-top:2%">
+                         {{#each projects}} 
+            <div class="item-click">
+						<article>
+							<div class="brows-job-list" style="display: flex; justify-content:center;background:rgba(255,255,255,0.2)">
+								<div class="col-md-4 no-padd">
+                            <div class="input-group"><input type="text" class="form-control right-bor" id="joblist" readonly
+                                                            placeholder={{this.long_url}}></div>
+                        </div>
+                        <div class="col-md-4 no-padd">
+                            <div class="input-group"><input type="text" class="form-control right-bor" id="joblist" readonly
+                                                            placeholder={{this.short_url}}></div>
+                        </div>
+                        
+                        <div class="col-md-2 no-padd">
+                            <div class="input-group">
+                                <button type="submit" class="btn-get-started-2">Go to URL</button>
+                            </div>
+                        </div>
+							</div>
+						</article>
+					</div>
+                            {{/each}} 
+                    
+                   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <footer class="footer">
+        <div class="row copyright">
+            <div class="container">
+                <p><a target="_blank" href="https://www.templateshub.net">Templates Hub</a></p>
+            </div>
+        </div>
+    </footer>
+    <button class="w3-button w3-teal w3-xlarge w3-right" onclick="openRightMenu()"><i class="spin fa fa-cog"
+                                                                                      aria-hidden="true"></i></button>
+    <div class="w3-sidebar w3-bar-block w3-card-2 w3-animate-right" style="display:none;right:0;" id="rightMenu">
+        <button onclick="closeRightMenu()" class="w3-bar-item w3-button w3-large">Close &times;</button>
+        <ul id="styleOptions" title="switch styling">
+            <li><a href="javascript: void(0)" class="cl-box blue" data-theme="colors/blue-style"></a></li>
+            <li><a href="javascript: void(0)" class="cl-box red" data-theme="colors/red-style"></a></li>
+            <li><a href="javascript: void(0)" class="cl-box purple" data-theme="colors/purple-style"></a></li>
+            <li><a href="javascript: void(0)" class="cl-box green" data-theme="colors/green-style"></a></li>
+            <li><a href="javascript: void(0)" class="cl-box dark-red" data-theme="colors/dark-red-style"></a></li>
+            <li><a href="javascript: void(0)" class="cl-box orange" data-theme="colors/orange-style"></a></li>
+            <li><a href="javascript: void(0)" class="cl-box sea-blue" data-theme="colors/sea-blue-style "></a></li>
+            <li><a href="javascript: void(0)" class="cl-box pink" data-theme="colors/pink-style"></a></li>
+        </ul>
+    </div>
+    <!-- Scripts==================================================-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.8/handlebars.js"></script>
+    <script type="text/javascript" src="assets/plugins/js/loader.js"></script>
+    <script type="text/javascript">
+      
+    </script>
+    <script>function openRightMenu() {
+        document.getElementById("rightMenu").style.display = "block";
+    }
+    function closeRightMenu() {
+        document.getElementById("rightMenu").style.display = "none";
+    }</script>
+</div>
+</body>
+
+</html>

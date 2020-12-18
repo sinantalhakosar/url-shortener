@@ -40,16 +40,17 @@ module.exports.createURL = (url, user) => {
       });
 };
 
-  module.exports.findAllUrlsOfUser = () => {
+  module.exports.findAllUrlsOfUser = (user_id) => {
     return Url.findAll({
       include: [
         {
           model: User,
           as: "users",
-          attributes: ["user_id", "username"],
           through: {
-            attributes: [],
+            attributes: ["user_id","url_id"],
+            where: {user_id: user_id}
           },
+          
           // through: {
           //   attributes: ["tag_id", "tutorial_id"],
           // },
@@ -57,7 +58,7 @@ module.exports.createURL = (url, user) => {
       ],
     })
       .then((url) => {
-        console.log(">> Returned Urls: " + JSON.stringify(url, null, 4));
+        //console.log(">> Returned Urls: " + JSON.stringify(url, null, 4));
         return url;
       })
       .catch((err) => {

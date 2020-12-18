@@ -90,6 +90,7 @@ router.post('/login', async function(req, res, next) {
                   res.cookie('token', token, {
                     maxAge: 3600000, httpOnly:true
                 });
+                res.redirect('/dashboard')
                   }else{
                     res.render('login', {
                       message: 'User not found.',

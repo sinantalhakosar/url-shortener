@@ -62,8 +62,8 @@ const run = async () => {
   }, user1);
 
   await UserService.findUserById(user1.user_id);
-  await UrlService.findAllUrlsOfUser();
-  await UrlService.deleteUrlById(url1.url_id);
+  //await UrlService.findAllUrlsOfUser();
+  //await UrlService.deleteUrlById(url1.url_id);
 };
 
 //db.sequelize.sync();
