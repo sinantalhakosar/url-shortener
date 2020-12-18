@@ -1,4 +1,3 @@
-var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -50,31 +49,31 @@ app.use(function(err, req, res, next) {
 });
 
 const db = require("./models");
-const UserService = require("./services/user.services");
-const UrlService = require("./services/url.services");
+//const UserService = require("./services/user.services");
+//const UrlService = require("./services/url.services");
 
-const run = async () => {
-  const user1 = await UserService.createUser({
-    username: "sinan",
-    password: "talha",
-    email: "kosar",
-  });
+// const run = async () => {
+  // const user1 = await UserService.createUser({
+  //   username: "sinan",
+  //   password: "talha",
+  //   email: "kosar",
+  // });
 
   // const url1 = await UrlService.createURL({
   //   long_url: "https://google.com.tr",
   // }, user1.user_id);
 
-  await UserService.findUserById(user1.user_id);
+  //await UserService.findUserById(user1.user_id);
   //await UrlService.findAllUrlsOfUser();
   //await UrlService.deleteUrlById(url1.url_id);
-};
+// };
 
-//db.sequelize.sync();
+db.sequelize.sync();
 //For development
-db.sequelize.sync({ force: true}).then(() => {
-  console.log("Drop and re-sync db.");
-  run();
-});
+// db.sequelize.sync({ force: true}).then(() => {
+//   console.log("Drop and re-sync db.");
+//   run();
+// });
 
 
 
