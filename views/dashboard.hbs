@@ -70,13 +70,11 @@
             <div class="banner-caption">
                 <div class="col-md-12 col-sm-12 banner-text">
                    <h1>Shorten URLs</h1>
-                    <form class="form-horizontal" style="display: flex;justify-content:center">
+                    <form class="form-horizontal" style="display: flex;justify-content:center" action="/dashboard" method="post">
                         <div class="col-md-6 no-padd">
-                            <div class="input-group"><input type="text" class="form-control right-bor" id="joblist"
+                            <div class="input-group"><input type="url" name="long_url" class="form-control right-bor" id="joblist" required
                                                             placeholder="Paste the Long Url Here..."></div>
                         </div>
-                        
-                        
                         <div class="col-md-2 no-padd">
                             <div class="input-group">
                                 <button type="submit" class="btn-get-started">Shorten URL</button>

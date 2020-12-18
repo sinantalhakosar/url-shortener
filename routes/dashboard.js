@@ -19,5 +19,25 @@ router.get('/', authJwt.verifyToken,async function(req, res, next) {
     res.render('dashboard',{projects : urlsArray})
   });
 
+/* POST dashboard page. */
+router.post('/', authJwt.verifyToken, async function(req, res, next) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        // There are errors. Render form again with sanitized values/errors messages.
+        // Error messages can be returned in an array using `errors.array()`.
+        console.log("ERROR")
+    }else {
+        // Data from form is valid.
+        try {
+            const url1 = await UrlService.createURL({
+                long_url: req.body.long_url,
+              }, req.userId);
+          } catch (error) {
+            console.log(error);
+            res.status(400).send({ message: "URL adding failed." });
+          }
+    }
+  });
+
 
 module.exports = router;

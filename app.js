@@ -59,7 +59,7 @@ const run = async () => {
 
   const url1 = await UrlService.createURL({
     long_url: "www.google.com.tr",
-  }, user1);
+  }, user1.user_id);
 
   await UserService.findUserById(user1.user_id);
   //await UrlService.findAllUrlsOfUser();

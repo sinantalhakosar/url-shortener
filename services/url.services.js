@@ -24,14 +24,14 @@ addURL = async (urlId, userId) =>{
       });
 };
 
-module.exports.createURL = (url, user) => {
+module.exports.createURL = (url, user_id) => {
     return Url.create({
         url_id: url.url_id,
         long_url: url.long_url,
         short_url: url.long_url,
     })
       .then(async (url) => {
-        await addURL(url.url_id, user.user_id);
+        await addURL(url.url_id, user_id);
         console.log(">> Created URL: " + JSON.stringify(url, null, 4));
         return url;
       })
