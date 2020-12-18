@@ -32,6 +32,7 @@ router.post('/', authJwt.verifyToken, async function(req, res, next) {
             const url1 = await UrlService.createURL({
                 long_url: req.body.long_url,
               }, req.userId);
+            res.redirect('/dashboard');
           } catch (error) {
             console.log(error);
             res.status(400).send({ message: "URL adding failed." });
