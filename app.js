@@ -34,7 +34,8 @@ app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+  //next(createError(404));
+  res.render('404')
 });
 
 // error handler
@@ -59,9 +60,9 @@ const run = async () => {
     email: "kosar",
   });
 
-  const url1 = await UrlService.createURL({
-    long_url: "www.google.com.tr",
-  }, user1.user_id);
+  // const url1 = await UrlService.createURL({
+  //   long_url: "https://google.com.tr",
+  // }, user1.user_id);
 
   await UserService.findUserById(user1.user_id);
   //await UrlService.findAllUrlsOfUser();

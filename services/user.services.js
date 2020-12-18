@@ -46,8 +46,8 @@ module.exports.loginUser = (username, password) => {
   });
 };
 
-module.exports.isUserExists = (username) => {
-  return User.findOne({where: {username: username}}).then((user)=> {
+module.exports.isUserExists = (newusername) => {
+  return User.findOne({where: {username: newusername}}).then((user)=> {
     if (!user) {
         return false;
     }

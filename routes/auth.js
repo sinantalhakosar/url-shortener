@@ -10,12 +10,22 @@ var http = require('http');
   
   /* GET login page. */
   router.get('/login', function(req, res, next) {
-    res.render('login');
+    try{
+      res.render('login');
+    }catch(error){
+      console.log(error)
+      res.render('500')
+    }
   });
   
   /* GET register page. */
   router.get('/register', function(req, res, next) {
-    res.render('register',{result:"Register"});
+    try{
+      res.render('register',{result:"Register"});
+    }catch(error){
+      console.log(error)
+      res.render('500')
+    }
   });
   
   /* POST users register. */
@@ -34,7 +44,7 @@ var http = require('http');
               if (!username || !password) {
                 res.status(400).send({ message: "Username or Password can not be empty" });
               } else {
-                if(UserService.isUserExists(username)){
+                if(await UserService.isUserExists(username)){
                   res.render('register', {
                     message: 'User already registered.',
                     messageClass: 'alert-danger'
@@ -50,7 +60,7 @@ var http = require('http');
               }
             } catch (error) {
               console.log(error);
-              res.status(400).send({ message: "Authentication failed." });
+              res.render('500')
             }
       }
   });
@@ -62,6 +72,7 @@ var http = require('http');
           // There are errors. Render form again with sanitized values/errors messages.
           // Error messages can be returned in an array using `errors.array()`.
           console.log("ERROR")
+          res.render('400')
       }else {
           // Data from form is valid.
           try {
@@ -97,14 +108,21 @@ var http = require('http');
               }
             } catch (error) {
               console.log(error);
+              res.render('500')
             }
       }
   });
 
 /* GET logout page. */
 router.get('/logout', function(req, res, next) {
+  try{
     res.clearCookie("token");
     res.render('index');
+  }catch(error){
+    console.log(error)
+    res.render('500')
+  }
+    
 });
 
 module.exports = router;

@@ -11,6 +11,7 @@ const fetch = require("node-fetch");
 
 /* GET dashboard page. */
 router.get('/shortener', authJwt.verifyToken,async function(req, res, next) {
+    try{
     let urls = await UrlService.findAllUrlsOfUser(req.userId);
     let urlsArray = []
     urls.forEach((url)=>{
@@ -18,6 +19,10 @@ router.get('/shortener', authJwt.verifyToken,async function(req, res, next) {
         urlsArray.push(url.dataValues)
     })
     res.render('dashboard',{projects : urlsArray})
+    }catch(error){
+        console.log(error)
+        res.render('500')
+    }
   });
 
 /* POST dashboard page. */
@@ -27,6 +32,7 @@ router.post('/shortener', authJwt.verifyToken, async function(req, res, next) {
         // There are errors. Render form again with sanitized values/errors messages.
         // Error messages can be returned in an array using `errors.array()`.
         console.log("ERROR")
+        res.render('400')
     }else {
         // Data from form is valid.
         try {
@@ -36,7 +42,7 @@ router.post('/shortener', authJwt.verifyToken, async function(req, res, next) {
             res.redirect('/dashboard/shortener');
           } catch (error) {
             console.log(error);
-            res.status(400).send({ message: "URL adding failed." });
+            res.render('500')
           }
     }
   });
