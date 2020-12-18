@@ -42,5 +42,30 @@ router.post('/shortener', authJwt.verifyToken, async function(req, res, next) {
     }
   });
 
+  /* POST dashboard page url remove. */
+router.post('/remove', authJwt.verifyToken, async function(req, res, next) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        // There are errors. Render form again with sanitized values/errors messages.
+        // Error messages can be returned in an array using `errors.array()`.
+        console.log("ERROR")
+        res.render('400')
+    }else {
+        // Data from form is valid.
+        try {
+            let short_url = req.body.short_url.split('/')[1];
+            let delete_response = await UrlService.deleteUrlByShortUrl(short_url);
+            if(delete_response){
+                res.redirect('/dashboard/shortener');
+            }else{
+                res.render('500')
+            }
+          } catch (error) {
+            console.log(error);
+            res.render('500')
+          }
+    }
+  });
+
 
 module.exports = router;

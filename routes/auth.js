@@ -78,19 +78,11 @@ const config = require("../config/auth.config");
               if (!username || !password) {
                 res.status(400).send({ message: "Username or Password can not be empty" });
               } else {
-                  console.log(username);
-                  console.log(password);
                   let findUser = await UserService.loginUser(username,password);
                   if(findUser instanceof Object){
                     var token = jwt.sign({ id: findUser.user_id }, config.secret, {
                       expiresIn: 86400 // 24 hours
                     });
-                    // res.status(200).redirect("/dashboard").send({
-                    //   id: findUser.user_id,
-                    //   username: findUser.username,
-                    //   email: findUser.email,
-                    //   accessToken: token
-                    // });
                     res.cookie('token', token, {
                       maxAge: 3600000, httpOnly:true
                   });

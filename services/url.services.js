@@ -49,11 +49,7 @@ module.exports.createURL = (url, user_id) => {
           through: {
             attributes: ["user_id","url_id"],
             where: {user_id: user_id}
-          },
-          
-          // through: {
-          //   attributes: ["tag_id", "tutorial_id"],
-          // },
+          }
         },
       ],
     })
@@ -77,17 +73,18 @@ module.exports.createURL = (url, user_id) => {
       });
   };
 
-  module.exports.deleteUrlById = (url_id) =>{
+  module.exports.deleteUrlByShortUrl = (short_url) =>{
       return Url.destroy({
         where: {
-            url_id: url_id
+            short_url: short_url
         }
       })
       .then((deleted_row) => {
           if(deleted_row === 1){
-            console.log('Deleted successfully');
+            //console.log('Deleted successfully');
+            return true;
           }
-        return deleted_row;
+        return false;
       })
       .catch((err) => {
         console.log(">> Error while deleting Url: ", err);

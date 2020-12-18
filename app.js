@@ -65,7 +65,7 @@ const db = require("./models");
 
   //await UserService.findUserById(user1.user_id);
   //await UrlService.findAllUrlsOfUser();
-  //await UrlService.deleteUrlById(url1.url_id);
+  //await UrlService.deleteUrlByShortUrl(url1.short_url);
 // };
 
 db.sequelize.sync();
