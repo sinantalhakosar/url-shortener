@@ -58,6 +58,16 @@
     color: #000;
   }
 
+  .block {
+  width: 10%;
+  border: none;
+  background-color: rgba(255,255,255,0.2);
+  padding: 14px 28px;
+  font-size: 32px;
+  text-align: center;
+}
+
+
     </style>
 </head>
 <body>
@@ -68,11 +78,16 @@
     <div class="banner" style="width: 100%;height: 100vh;background: url(../images/hero-bg.jpg) top center;background-size: cover;padding-top:0% !important;">
         <div class="container">
             <div class="banner-caption">
-                <div class="col-md-12 col-sm-12 banner-text">
+                <div class="col-md-12 col-sm-12 banner-text" style="margin-top: 2%;">
+                    <div style="display: flex; justify-content:flex-end;">
+                    <a class="block" href="/logout">
+                    <i class="fa fa-sign-out" style="color: #fff;" aria-hidden="true"></i>
+                    </a>
+                </div>
                    <h1>Shorten URLs</h1>
-                    <form class="form-horizontal" style="display: flex;justify-content:center" action="/dashboard" method="post">
+                    <form class="form-horizontal" style="display: flex;justify-content:center" action="/dashboard/shortener" method="post">
                         <div class="col-md-6 no-padd">
-                            <div class="input-group"><input type="url" name="long_url" class="form-control right-bor" id="joblist" required
+                            <div class="input-group"><input type="url" name="long_url" class="form-control right-bor" required
                                                             placeholder="Paste the Long Url Here..."></div>
                         </div>
                         <div class="col-md-2 no-padd">
@@ -84,24 +99,22 @@
                     <div style="overflow-y: scroll; height:400px;padding-top:2%">
                          {{#each projects}} 
             <div class="item-click">
-						<article>
 							<div class="brows-job-list" style="display: flex; justify-content:center;background:rgba(255,255,255,0.2)">
 								<div class="col-md-4 no-padd">
-                            <div class="input-group"><input type="text" class="form-control right-bor" id="joblist" readonly
-                                                            placeholder={{this.long_url}}></div>
+                            <div class="input-group"><input type="text" name="long_url" class="form-control right-bor" readonly
+                                                            value={{this.long_url}} placeholder={{this.long_url}}></div>
                         </div>
                         <div class="col-md-4 no-padd">
-                            <div class="input-group"><input type="text" class="form-control right-bor" id="joblist" readonly
-                                                            placeholder={{this.short_url}}></div>
+                            <div class="input-group"><input type="text" class="form-control right-bor" id={{this.short_url}} readonly
+                                                       value="localhost:3000/{{this.short_url}}" name="short_url" placeholder={{this.short_url}}></div>
                         </div>
                         
                         <div class="col-md-2 no-padd">
                             <div class="input-group">
-                                <button type="submit" class="btn-get-started-2">Go to URL</button>
+                                <button type="button" class="btn-get-started-2" name="copyButton" onclick="myFunction({{this.short_url}},this)">Copy <i class="fa fa-copy"></i></button>
                             </div>
                         </div>
 							</div>
-						</article>
 					</div>
                             {{/each}} 
                     
@@ -119,10 +132,10 @@
             </div>
         </div>
     </footer>
-    <button class="w3-button w3-teal w3-xlarge w3-right" onclick="openRightMenu()"><i class="spin fa fa-cog"
+    <button class="w3-button w3-teal w3-xlarge w3-right" onclick="openRightMenu()"><i class="fa fa-cog"
                                                                                       aria-hidden="true"></i></button>
     <div class="w3-sidebar w3-bar-block w3-card-2 w3-animate-right" style="display:none;right:0;" id="rightMenu">
-        <button onclick="closeRightMenu()" class="w3-bar-item w3-button w3-large">Close &times;</button>
+        <button onclick="closeRightMenu()" class="w3-bar-item w3-button w3-large">Close <i class="fa fa-window-close"></i></button>
         <ul id="styleOptions" title="switch styling">
             <li><a href="javascript: void(0)" class="cl-box blue" data-theme="colors/blue-style"></a></li>
             <li><a href="javascript: void(0)" class="cl-box red" data-theme="colors/red-style"></a></li>
@@ -138,7 +151,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.8/handlebars.js"></script>
     <script type="text/javascript" src="assets/plugins/js/loader.js"></script>
     <script type="text/javascript">
-      
+    
+
+      function myFunction(element,button) {
+    /* Get the text field */
+    var copyTexts = document.getElementsByName("copyButton");
+    for(var i=0;i<copyTexts.length;i++){
+        copyTexts[i].innerHTML = "Copy"
+    }
+    var copyText = document.getElementById(element.getAttribute('id'));
+    /* Select the text field */
+    copyText.select(); 
+    copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+    /* Copy the text inside the text field */
+    document.execCommand("copy");
+
+    /* Alert the copied text */
+    //alert("Copied the text: " + copyText.value);
+    console.log(button.innerHTML)
+    button.innerHTML = "Copied"
+    }
     </script>
     <script>function openRightMenu() {
         document.getElementById("rightMenu").style.display = "block";

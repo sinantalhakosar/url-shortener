@@ -66,6 +66,17 @@ module.exports.createURL = (url, user_id) => {
       });
   };
 
+  module.exports.findUrlsOfUserById = (short_url) => {
+    return Url.findOne({where: {short_url:short_url}})
+      .then((url) => {
+        //console.log(">> Returned Urls: " + JSON.stringify(url, null, 4));
+        return url;
+      })
+      .catch((err) => {
+        console.log(">> Error while retrieving Url: ", err);
+      });
+  };
+
   module.exports.deleteUrlById = (url_id) =>{
       return Url.destroy({
         where: {
