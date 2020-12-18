@@ -1,13 +1,8 @@
 var express = require('express');
 var router = express.Router();
 const { authJwt } = require("../middleware");
-
 const { body,validationResult } = require('express-validator');
-const UserService = require("../services/user.services");
 const UrlService = require("../services/url.services");
-var jwt = require('jsonwebtoken');
-const { db } = require('../models');
-const fetch = require("node-fetch");
 
 /* GET dashboard page. */
 router.get('/shortener', authJwt.verifyToken,async function(req, res, next) {

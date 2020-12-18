@@ -1,12 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const {validationResult} = require('express-validator');
-const UserService = require("../services/user.services");
 const UrlService = require("../services/url.services");
-var jwt = require('jsonwebtoken');
-const fetch = require("node-fetch");
-const config = require("../config/auth.config");
-var http = require('http');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
