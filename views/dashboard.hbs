@@ -94,11 +94,32 @@
         <div class="container">
             <div class="banner-caption">
                 <div class="col-md-12 col-sm-12 banner-text" style="margin-top: 2%;">
-                    <div style="display: flex; justify-content:flex-end;">
-                    <a class="block" href="/auth/logout">
-                    <i class="fa fa-sign-out" style="color: #fff;" aria-hidden="true"></i>
-                    </a>
-                </div>
+                  
+                    
+                    <div class="col-md-12 col-sm-12">
+                        <div style="z-index:902;display:flex;justify-center:center">
+                            <div style="position: fixed; width: 90%;display:flex;justify-content:flex-end">
+                                <a class="block" href="/auth/logout">
+                                    <i class="fa fa-sign-out" style="color: #fff;" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                            {{#if message}}
+                            <div style="display:flex;justify-content:center;width:100%">
+                                <div style="width: 50%;background-color:rgba(255,255,255,0.2);">
+                                <h4 style="color: #fff";>{{message}}</h4>
+                                </div>
+                                 </div>
+                            {{else}}
+                            <div style="display:flex;justify-content:center;width:100%">
+                                <div style="width: 50%;">
+                                <h4 style="color: #fff;">&nbsp;</h4>
+                                </div>
+                                </div>
+                            {{/if}}
+                        </div>
+                    </div>
+               
+                
                    <h1>Shorten URLs</h1>
                     <form class="form-horizontal" style="display: flex;justify-content:center" action="/dashboard/shortener" method="post">
                         <div class="col-md-5 no-padd">
@@ -107,7 +128,7 @@
                         </div>
                         <div class="col-md-5 no-padd">
                             <div class="input-group"><input type="text" name="short_url" class="form-control right-bor" pattern="^[a-zA-Z0-9]*$"
-                                                            placeholder="Write the Short Url Here...(Optional)"></div>
+                                                           minlength="4" placeholder="Write the Short Url Here...(Optional)"></div>
                         </div>
                         <div class="col-md-2 no-padd">
                             <div class="input-group">

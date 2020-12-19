@@ -25,7 +25,13 @@ module.exports = (sequelize, Sequelize) => {
         else if (!url.changed('long_url')) return url.long_url;
         else {
             if(url.short_url.length === 0){
-                return url.short_url = (Date.now() + ~~(Math.random()*1000)).toString(36);
+                let unique_short_url = (Date.now() + ~~(Math.random()*1000)).toString(36);
+                unique_short_url = unique_short_url.split('')
+                for(let i=0;i<Math.floor(Math.random() * unique_short_url.length/2);i++){
+                    unique_short_url[i] = unique_short_url[i].toUpperCase()
+                }
+                unique_short_url = unique_short_url.join('')
+                return url.short_url = unique_short_url
             }
             return;
         }

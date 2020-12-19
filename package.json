@@ -25,6 +25,7 @@
     "crypto": "^1.0.1",
     "debug": "~2.6.9",
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "express-validator": "^6.8.0",
     "hbs": "~4.0.4",
     "jsonwebtoken": "^8.5.1",
@@ -32,6 +33,7 @@
     "node-sass-middleware": "0.11.0",
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",
+    "req-flash": "^0.0.3",
     "sequelize": "^6.3.5",
     "sequelize-cli": "^6.2.0",
     "uuidv4": "^6.2.6"

@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const { authJwt } = require("../middleware");
-const { body,validationResult } = require('express-validator');
+const { validationResult } = require('express-validator');
 const UrlService = require("../services/url.services");
 
 /* GET dashboard page. */
@@ -13,7 +13,7 @@ router.get('/shortener', authJwt.verifyToken,async function(req, res, next) {
         //url.dataValues.short_url = req.headers.host + "/" + url.dataValues.short_url
         urlsArray.push(url.dataValues)
     })
-    res.render('dashboard',{projects : urlsArray})
+    res.render('dashboard',{projects : urlsArray,   message: req.flash('message') })
     }catch(error){
         console.log(error)
         res.render('500')
@@ -31,16 +31,19 @@ router.post('/shortener', authJwt.verifyToken, async function(req, res, next) {
     }else {
         // Data from form is valid.
         try {
-            if(req.body.short_url.length === 0){
-                console.log("empty")
-            }else{
-                console.log("short:",req.body.short_url)
+            let shortUrlExist = await UrlService.findUrlsOfUserByShortUrl(req.body.short_url);
+            if(shortUrlExist !== null){
+               // res.render('dashboard',{message:"This url exist, please write another.",messageClass: 'alert-warning'});
+                req.flash('message', 'This short url already exists');
+                res.redirect('/dashboard/shortener');
+                return;
             }
             await UrlService.createURL({
                 long_url: req.body.long_url,
                 short_url: req.body.short_url
               }, req.userId);
-            res.redirect('/dashboard/shortener');
+              req.flash('message', 'Short Url added successfully');
+              res.redirect('/dashboard/shortener');
           } catch (error) {
             console.log(error);
             res.render('500')
@@ -62,6 +65,7 @@ router.post('/remove', authJwt.verifyToken, async function(req, res, next) {
             let short_url = req.body.short_url.split('/')[1];
             let delete_response = await UrlService.deleteUrlByShortUrl(short_url);
             if(delete_response){
+                req.flash('message', 'Short Url deleted successfully');
                 res.redirect('/dashboard/shortener');
             }else{
                 res.render('500')

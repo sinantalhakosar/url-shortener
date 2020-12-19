@@ -1,16 +1,17 @@
 var express = require('express');
 var path = require('path');
-var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var sassMiddleware = require('node-sass-middleware');
-var cors = require('cors')
+var cors = require('cors');
+var session = require('express-session');
+var flash = require('req-flash');
+var cookieParser = require('cookie-parser');
 
 var indexRouter = require('./routes/index');
 var dashboardRouter = require('./routes/dashboard');
 var authRouter = require('./routes/auth');
 
 var app = express();
-app.use(cors());
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -18,13 +19,24 @@ app.set('view engine', 'hbs');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(sassMiddleware({
   src: path.join(__dirname, 'public'),
   dest: path.join(__dirname, 'public'),
   indentedSyntax: true, // true = .sass and false = .scss
   sourceMap: true
 }));
+app.use(cors());
+app.use(session({
+secret: 'djhxcvxfgshajfgjhgsjhfgsakjeauytsdfy',
+resave: false,
+saveUninitialized: true,
+cookie: {
+  expires: 600000,
+  httpOnly: true
+}
+}));
+app.use(flash());
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);

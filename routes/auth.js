@@ -42,10 +42,8 @@ const config = require("../config/auth.config");
                 res.status(400).send({ message: "Username or Password can not be empty" });
               } else {
                 if(await UserService.isUserExists(username)){
-                  res.render('register', {
-                    message: 'User already registered.',
-                    messageClass: 'alert-danger'
-                });
+                  req.flash('statusMsg', 'User already registered!');
+                  res.render('register', { "statusMsg": req.flash("statusMsg")});
                   return;
                 }
                   await UserService.createUser({
@@ -53,7 +51,8 @@ const config = require("../config/auth.config");
                     password: password,
                     email: email,
                   });
-                  res.render('register',{result:"User created Successfully"})
+                  req.flash('statusMsg', 'User created successfully!');
+                  res.render('register', { "statusMsg": req.flash("statusMsg")});
               }
             } catch (error) {
               console.log(error);
@@ -88,10 +87,12 @@ const config = require("../config/auth.config");
                   });
                   res.redirect('/dashboard/shortener')
                     }else{
-                      res.render('login', {
-                        message: 'User not found.',
-                        messageClass: 'alert-danger'
-                    });
+                    //   res.render('login', {
+                    //     message: 'User not found.',
+                    //     messageClass: 'alert-warning'
+                    // });
+                    req.flash('errorMsg', 'User not found!');
+                    res.render('login', { "errorMsg": req.flash("errorMsg")});
                     return;
                     }
               }

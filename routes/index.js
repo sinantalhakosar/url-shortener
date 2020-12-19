@@ -36,7 +36,7 @@ router.get('/favicon.ico', function(req, res) {
         // Data from form is valid.
         try {
             var short_url = req.params.short_url;
-            let foundUrl = await UrlService.findUrlsOfUserById(short_url)
+            let foundUrl = await UrlService.findUrlsOfUserByShortUrl(short_url)
             if(foundUrl === null){
               res.render('428')
               return;

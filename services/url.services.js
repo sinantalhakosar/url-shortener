@@ -65,7 +65,7 @@ module.exports.createURL = (url, user_id) => {
       });
   };
 
-  module.exports.findUrlsOfUserById = (short_url) => {
+  module.exports.findUrlsOfUserByShortUrl = (short_url) => {
     return Url.findOne({where: {short_url:short_url}})
       .then((url) => {
         //console.log(">> Returned Urls: " + JSON.stringify(url, null, 4));
