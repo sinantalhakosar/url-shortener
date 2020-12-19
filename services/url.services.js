@@ -60,6 +60,8 @@ module.exports.createURL = async (url, user_id) => {
         url_id: url.url_id,
         long_url: url.long_url,
         short_url: url.short_url,
+        last_accessed: url.last_accessed,
+        access_count: url.access_count
     }
     })
       .then(async (url) => {
@@ -123,3 +125,24 @@ module.exports.createURL = async (url, user_id) => {
         console.log(">> Error while deleting Url: ", err);
       });
   }
+
+  module.exports.updateShortUrlLastAccess = (short_url) =>{
+    return Url.update({
+      last_accessed: Date.now(),
+      access_count: Sequelize.literal('access_count + 1')
+     }, {
+      where: {
+       short_url: short_url
+      }
+     })
+    .then((updated_row) => {
+        if(updated_row === 1){
+          //console.log('Deleted successfully');
+          return true;
+        }
+      return false;
+    })
+    .catch((err) => {
+      console.log(">> Error while updating Url: ", err);
+    });
+}

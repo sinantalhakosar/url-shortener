@@ -107,7 +107,7 @@
 <div class="wrapper">
    
     <div class="clearfix"></div>
-    <div class="banner" style="width: 100%;height: 100vh;background: url(../images/hero-bg.jpg) top center;background-size: cover;padding-top:0% !important;">
+    <div class="banner" style="width: 100%;height: 100vh;background: url(/../images/hero-bg.jpg) top center;background-size: cover;padding-top:0% !important;">
         <div class="container">
             <div class="banner-caption">
                 <div class="col-md-12 col-sm-12 banner-text" style="margin-top: 2%;">
@@ -120,75 +120,80 @@
                                     <i class="fa fa-sign-out" style="color: #fff;" aria-hidden="true"></i>
                                 </a>
                             </div>
-                            {{#if message}}
-                            <div style="display:flex;justify-content:center;width:100%">
-                                <div style="width: 50%;background-color:rgba(255,255,255,0.2);">
-                                <h4 style="color: #fff";>{{message}}</h4>
-                                </div>
-                                 </div>
-                            {{else}}
-                            <div style="display:flex;justify-content:center;width:100%">
-                                <div style="width: 50%;">
-                                <h4 style="color: #fff;">&nbsp;</h4>
-                                </div>
-                                </div>
-                            {{/if}}
+                            
                         </div>
                     </div>
                
                 
-                   <h1>Shorten URLs</h1>
-                    <form class="form-horizontal" style="display: flex;justify-content:center" action="/dashboard/shortener" method="post">
-                        <div class="col-md-5 no-padd">
-                            <div class="input-group"><input type="url" name="long_url" class="form-control right-bor" required
-                                                            placeholder="Paste the Long Url Here..."></div>
-                        </div>
-                        <div class="col-md-5 no-padd">
-                            <div class="input-group"><input type="text" name="short_url" class="form-control right-bor" pattern="^[a-zA-Z0-9]*$"
-                                                           minlength="4" placeholder="Write the Short Url Here...(Optional)"></div>
-                        </div>
-                        <div class="col-md-2 no-padd">
-                            <div class="input-group">
-                                <button type="submit" class="btn-get-started">Shorten URL</button>
+                   <h1>URL Statistics</h1>
+                   {{#if urlstat}}
+                    <div class="col-md-2 col-sm-6" style="visibility: hidden;">
+                </div>
+                <div class="col-md-4 col-sm-6" style="">
+                    <div class="category-box" data-aos="fade-up" style="background:rgba(255,255,255,0.5)">
+                        <div class="category-desc">
+                            <div class="category-icon"><i class="fa fa-road" aria-hidden="true"></i></div>
+                            <div class="category-detail category-desc-text">
+                                <h4 style="color: #000;margin-bottom:5%;">Long Url</h4>
+
+                                <span style="color: #000;font-size:x-large;font-weight:600;">{{urlstat.long_url}}</span>
                             </div>
                         </div>
-                    </form>
-                    <div style="overflow-y: scroll; height:400px;padding-top:2%">
-                         {{#each projects}} 
-            <div class="item-click">
-                <form action="/dashboard/remove" method="POST">
-							<div class="brows-job-list" style="display: flex; justify-content:center;background:rgba(255,255,255,0.2)">
-                                <div class="col-md-1 no-padd" style="display: flex;align-items:center;justify-content:center">
-                            <div class="input-group">
-                                <a href="/dashboard/stats/{{this.short_url}}" target="_blank"><button type="button" class="btn-get-started-4"><i class="fa fa-bar-chart"></i></button></a>
-                            </div>
-                        </div>
-								<div class="col-md-4 no-padd">
-                            <div class="input-group"><input type="text" name="long_url" class="form-control right-bor" readonly
-                                                            value={{this.long_url}} placeholder={{this.long_url}}></div>
-                        </div>
-                        <div class="col-md-4 no-padd">
-                            <div class="input-group"><input type="text" class="form-control right-bor" id={{this.short_url}} readonly
-                                                       value="localhost:3000/{{this.short_url}}" name="short_url" placeholder={{this.short_url}}></div>
-                        </div>
-                        
-                        <div class="col-md-2 no-padd">
-                            <div class="input-group">
-                                <button type="button" class="btn-get-started-2" name="copyButton" onclick="myFunction({{this.short_url}},this)">Copy <i class="fa fa-copy"></i></button>
-                            </div>
-                        </div>
-                        <div class="col-md-1 no-padd" style="display: flex;align-items:center;justify-content:center">
-                            <div class="input-group">
-                                <button type="submit" class="btn-get-started-3"><i class="fa fa-times"></i></button>
-                            </div>
-                        </div>
-							</div>
-                            </form>
-					</div>
-                            {{/each}} 
-                    
-                   
                     </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="category-box" data-aos="fade-up" style="background:rgba(255,255,255,0.5)">
+                        <div class="category-desc">
+                            <div class="category-icon"><i class="fa fa-cut" aria-hidden="true"></i></div>
+                            <div class="category-detail category-desc-text">
+                                <h4 style="color: #000;margin-bottom:5%;">Short Url</h4>
+
+                                <span style="color: #000;font-size:x-large;font-weight:600;">localhost:3000/{{urlstat.short_url}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6">
+                    <div class="category-box" data-aos="fade-up" style="visibility: hidden;">
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="category-box" data-aos="fade-up" style="background:rgba(255,255,255,0.5)">
+                        <div class="category-desc">
+                            <div class="category-icon"><i class="fa fa-plug" aria-hidden="true"></i></div>
+                            <div class="category-detail category-desc-text">
+                               <h4 style="color: #000;margin-bottom:5%;">Date Created</h4>
+
+                                <span style="color: #000;font-size:x-large;font-weight:600;">{{urlstat.createdAt}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="category-box" data-aos="fade-up" style="background:rgba(255,255,255,0.5)">
+                        <div class="category-desc">
+                            <div class="category-icon"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                            <div class="category-detail category-desc-text">
+                                <h4 style="color: #000;margin-bottom:5%;">Date Last Access</h4>
+
+                                <span style="color: #000;font-size:x-large;font-weight:600;">{{urlstat.last_accessed}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="category-box" data-aos="fade-up" style="background:rgba(255,255,255,0.5)">
+                        <div class="category-desc">
+                            <div class="category-icon"><i class="fa fa-plus" aria-hidden="true"></i></div>
+                            <div class="category-detail category-desc-text">
+                               <h4 style="color: #000;margin-bottom:5%;">Access Count</h4>
+
+                                <span style="color: #000;font-size:x-large;font-weight:600;">{{urlstat.access_count}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/if}}
                 </div>
             </div>
         </div>

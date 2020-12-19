@@ -41,6 +41,7 @@ router.get('/favicon.ico', function(req, res) {
               res.render('428')
               return;
             }
+            await UrlService.updateShortUrlLastAccess(short_url);
             res.redirect(foundUrl.dataValues.long_url)
           } catch (error) {
             console.log(error);

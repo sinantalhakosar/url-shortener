@@ -40,7 +40,9 @@ router.post('/shortener', authJwt.verifyToken, async function(req, res, next) {
             }
             await UrlService.createURL({
                 long_url: req.body.long_url,
-                short_url: req.body.short_url
+                short_url: req.body.short_url,
+                last_accessed:0,
+                access_count: 0,
               }, req.userId);
               req.flash('message', 'Short Url added successfully');
               res.redirect('/dashboard/shortener');
@@ -77,5 +79,16 @@ router.post('/remove', authJwt.verifyToken, async function(req, res, next) {
     }
   });
 
+  /* GET statistics page. */
+router.get('/stats/:short_url', authJwt.verifyToken,async function(req, res, next) {
+  try{
+  let urls = await UrlService.findUrlsOfUserByShortUrl(req.params.short_url);
+  //res.render('dashboard',{projects : urlsArray,   message: req.flash('message') })
+  res.render('stats',{urlstat : urls.dataValues,   message: req.flash('message') });
+  }catch(error){
+      console.log(error)
+      res.render('500')
+  }
+});
 
 module.exports = router;

@@ -14,6 +14,12 @@ module.exports = (sequelize, Sequelize) => {
             type: DataTypes.STRING(1000),
             allowNull: false,
             unique: true
+        },
+        last_accessed: {
+            type:DataTypes.DATE
+        },
+        access_count: {
+            type:DataTypes.INTEGER
         }
     });
 
