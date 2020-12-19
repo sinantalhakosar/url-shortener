@@ -1,3 +1,7 @@
+/*
+Database connection credentials
+Do not forget to change after postgresql setup
+*/
 module.exports = {
     HOST: "localhost",
     USER: "sinan",

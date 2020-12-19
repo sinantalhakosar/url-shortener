@@ -14,7 +14,10 @@ module.exports = (sequelize, Sequelize) => {
             type: DataTypes.STRING(1000)
         }
     });
-
+    /* 
+    Long url to shortener
+    Unique string and convert to Base 36 for even shorter string.
+    */
     shortenUrl = (url) => {
         if (url === null) {
             throw new Error('User not found');

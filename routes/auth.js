@@ -25,7 +25,7 @@ const config = require("../config/auth.config");
     }
   });
   
-  /* POST users register. */
+  /* POST register. */
   router.post('/register', async function(req, res, next) {
     const errors = validationResult(req);
       if (!errors.isEmpty()) {

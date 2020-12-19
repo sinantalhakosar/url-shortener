@@ -22,6 +22,7 @@ db.sequelize = sequelize;
 db.user = require("./user.model.js")(sequelize, Sequelize);
 db.url = require("./url.model.js")(sequelize, Sequelize);
 
+// Relations ( users <-> urls)
 db.url.belongsToMany(db.user, {
   through: "user_url",
   as: "users",

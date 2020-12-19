@@ -2,6 +2,9 @@ const db = require("../models");
 const Url = db.url;
 const User = db.user;
 
+/*
+Add url to user_url table for relations
+*/
 addURL = async (urlId, userId) =>{
     return User.findByPk(userId)
       .then((user) => {

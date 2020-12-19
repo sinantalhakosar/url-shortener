@@ -24,7 +24,9 @@ module.exports = (sequelize, Sequelize) => {
     },{
         timestamps: false
     });
-
+    /*
+    Password encryption for storing password more securely in model
+    */
     encodePassword = (user) => {
         if (user === null) {
             throw new Error('User not found');
