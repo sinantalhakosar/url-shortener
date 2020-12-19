@@ -16,10 +16,10 @@ jQuery(document).ready(function( $ ) {
   new WOW().init();
   
   // Initiate superfish on nav menu
-  $('.nav-menu').superfish({
-    animation: {opacity:'show'},
-    speed: 400
-  });
+//   $('.nav-menu').superfish({
+//     animation: {opacity:'show'},
+//     speed: 400
+//   });
   
   // Mobile Navigation
   if( $('#nav-menu-container').length ) {
@@ -57,7 +57,7 @@ jQuery(document).ready(function( $ ) {
   }
   
   // Stick the header at top on scroll
-  $("#header").sticky({topSpacing:0, zIndex: '50'});
+  //$("#header").sticky({topSpacing:0, zIndex: '50'});
 
   // Smoth scroll on page hash links
   $('a[href*="#"]:not([href="#"])').on('click', function() {
