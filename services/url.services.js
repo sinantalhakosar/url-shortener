@@ -1,6 +1,7 @@
 const db = require("../models");
 const Url = db.url;
 const User = db.user;
+const Sequelize = require("sequelize");
 
 /*
 Add url to user_url table for relations
@@ -27,11 +28,39 @@ addURL = async (urlId, userId) =>{
       });
 };
 
-module.exports.createURL = (url, user_id) => {
-    return Url.create({
+/* 
+Long url to shortener
+Unique string and convert to Base 36 for even shorter string.
+*/
+shortenUrl = (url) => {
+    if (url === null) {
+        throw new Error('User not found');
+    }
+    else {
+        if(url.short_url.length === 0){
+            let unique_short_url = (Date.now() + ~~(Math.random()*1000)).toString(36);
+            unique_short_url = unique_short_url.split('')
+            for(let i=0;i<Math.floor(Math.random() * unique_short_url.length/2);i++){
+                unique_short_url[i] = unique_short_url[i].toUpperCase()
+            }
+            unique_short_url = unique_short_url.join('')
+            return url.short_url = unique_short_url
+        }
+        return;
+    }
+}
+
+module.exports.createURL = async (url, user_id) => {
+    await shortenUrl(url);
+    return Url.findOrCreate({
+        where:{
+            short_url: url.short_url
+        },
+        defaults:{
         url_id: url.url_id,
         long_url: url.long_url,
         short_url: url.short_url,
+    }
     })
       .then(async (url) => {
         await addURL(url.url_id, user_id);
@@ -50,11 +79,12 @@ module.exports.createURL = (url, user_id) => {
           model: User,
           as: "users",
           through: {
-            attributes: ["user_id","url_id"],
+            attributes: ["user_id","url_id","createdAt"],
             where: {user_id: user_id}
           }
         },
       ],
+      order: [[Sequelize.literal('"users->user_url"."createdAt"'), 'DESC']]
     })
       .then((url) => {
         //console.log(">> Returned Urls: " + JSON.stringify(url, null, 4));
