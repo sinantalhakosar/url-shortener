@@ -31,8 +31,14 @@ router.post('/shortener', authJwt.verifyToken, async function(req, res, next) {
     }else {
         // Data from form is valid.
         try {
-            const url1 = await UrlService.createURL({
+            if(req.body.short_url.length === 0){
+                console.log("empty")
+            }else{
+                console.log("short:",req.body.short_url)
+            }
+            await UrlService.createURL({
                 long_url: req.body.long_url,
+                short_url: req.body.short_url
               }, req.userId);
             res.redirect('/dashboard/shortener');
           } catch (error) {

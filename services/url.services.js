@@ -31,7 +31,7 @@ module.exports.createURL = (url, user_id) => {
     return Url.create({
         url_id: url.url_id,
         long_url: url.long_url,
-        short_url: url.long_url,
+        short_url: url.short_url,
     })
       .then(async (url) => {
         await addURL(url.url_id, user_id);
