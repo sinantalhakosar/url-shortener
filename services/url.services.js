@@ -27,10 +27,22 @@ addURL = async (urlId, userId) =>{
         console.log(">> Error while adding URL to User: ", err);
       });
 };
+/*
+Long url to shortener
+Unique string with length = 6
+*/
+getRandomString = () => {
+  var randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var result = '';
+  for ( var i = 0; i < 6; i++ ) {
+      result += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
+  }
+  return result;
+}
 
 /* 
 Long url to shortener
-Unique string and convert to Base 36 for even shorter string.
+Unique string and convert to Base 36 for even shorter string. No length Propery
 */
 shortenUrl = (url) => {
     if (url === null) {
@@ -51,7 +63,8 @@ shortenUrl = (url) => {
 }
 
 module.exports.createURL = async (url, user_id) => {
-    await shortenUrl(url);
+    //await shortenUrl(url);
+    url.short_url = getRandomString();
     return Url.findOrCreate({
         where:{
             short_url: url.short_url
