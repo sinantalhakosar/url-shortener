@@ -65,9 +65,13 @@ module.exports.createURL = async (url, user_id) => {
     }
     })
       .then(async (url) => {
-        await addURL(url.url_id, user_id);
-        console.log(">> Created URL: " + JSON.stringify(url, null, 4));
-        return url;
+        if(url._options.isNewRecord === false){
+          this.createURL(url,user_id);
+        }else{
+          await addURL(url.url_id, user_id);
+          console.log(">> Created URL: " + JSON.stringify(url, null, 4));
+          return url;
+        }
       })
       .catch((err) => {
         console.log(">> Error while creating URL: ", err);
