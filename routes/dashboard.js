@@ -46,6 +46,11 @@ router.post('/shortener', authJwt.verifyToken, async function(req, res, next) {
               }, req.userId);
               req.flash('message', 'Short Url added successfully');
               if(process.env.NODE_ENV === 'test'){
+                /*
+                  HTTP uses a cycle that requires one response per request. 
+                  When the client sends a request (e.g. POST or GET) the server should only send one response back to it.
+                  So only for testing, following works with res.send()
+                */
                 res.send(req.body.short_url);
               }
               res.redirect('/dashboard/shortener');

@@ -53,6 +53,11 @@ const config = require("../config/auth.config");
                   });
                   req.flash('statusMsg', 'User created successfully!');
                   if(process.env.NODE_ENV === 'test'){
+                    /*
+                    HTTP uses a cycle that requires one response per request. 
+                    When the client sends a request (e.g. POST or GET) the server should only send one response back to it.
+                    So only for testing, following works with res.send()
+                    */
                     res.send(user.user_id)
                   }
                   res.render('register', { "statusMsg": req.flash("statusMsg")});
