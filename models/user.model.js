@@ -1,3 +1,6 @@
+/*
+User model stands here
+*/
 const { DataTypes } = require("sequelize");
 const bcrypt = require('bcrypt-nodejs');
 

@@ -1,6 +1,6 @@
 /*
 Database connection credentials
-Do not forget to change after postgresql setup
+Do not forget to change after postgresql setup with credentials as requested
 */
 module.exports = {
     development:{

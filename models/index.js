@@ -1,3 +1,6 @@
+/*
+Sequelize JS configs and model relations are here
+*/
 const dbConfig = require("../config/db.config.js");
 
 const activeDb = dbConfig[process.env.NODE_ENV] 

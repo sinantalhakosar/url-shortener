@@ -1,3 +1,6 @@
+/*
+URL model stands here
+*/
 const { DataTypes } = require("sequelize");
 module.exports = (sequelize, Sequelize) => {
     const Url = sequelize.define("urls", {
