@@ -31,7 +31,10 @@ addURL = async (urlId, userId) =>{
 Long url to shortener
 Unique string with length = 6
 */
-getRandomString = () => {
+getRandomString = (short_url) => {
+  if(short_url.length !== 0){
+    return short_url
+  }
   var randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   var result = '';
   for ( var i = 0; i < 6; i++ ) {
@@ -64,7 +67,7 @@ shortenUrl = (url) => {
 
 module.exports.createURL = async (url, user_id) => {
     //await shortenUrl(url);
-    url.short_url = getRandomString();
+    url.short_url = getRandomString(url.short_url);
     return Url.findOrCreate({
         where:{
             short_url: url.short_url
@@ -78,7 +81,7 @@ module.exports.createURL = async (url, user_id) => {
     }
     })
       .then(async (url) => {
-        if(url._options.isNewRecord === false){
+        if(url[0]._options.isNewRecord === false){
           this.createURL(url,user_id);
         }else{
           await addURL(url.url_id, user_id);

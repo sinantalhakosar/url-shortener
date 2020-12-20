@@ -45,6 +45,9 @@ router.post('/shortener', authJwt.verifyToken, async function(req, res, next) {
                 access_count: 0,
               }, req.userId);
               req.flash('message', 'Short Url added successfully');
+              if(process.env.NODE_ENV === 'test'){
+                res.send(req.body.short_url);
+              }
               res.redirect('/dashboard/shortener');
           } catch (error) {
             console.log(error);
@@ -83,6 +86,7 @@ router.post('/remove', authJwt.verifyToken, async function(req, res, next) {
 router.get('/stats/:short_url', authJwt.verifyToken,async function(req, res, next) {
   try{
   let urls = await UrlService.findUrlsOfUserByShortUrl(req.params.short_url);
+  if(urls.dataValues.last_accessed.getTime() === 0){urls.dataValues.last_accessed = "-"}
   //res.render('dashboard',{projects : urlsArray,   message: req.flash('message') })
   res.render('stats',{urlstat : urls.dataValues,   message: req.flash('message') });
   }catch(error){

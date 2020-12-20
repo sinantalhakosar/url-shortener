@@ -46,12 +46,15 @@ const config = require("../config/auth.config");
                   res.render('register', { "statusMsg": req.flash("statusMsg")});
                   return;
                 }
-                  await UserService.createUser({
+                  let user = await UserService.createUser({
                     username: username,
                     password: password,
                     email: email,
                   });
                   req.flash('statusMsg', 'User created successfully!');
+                  if(process.env.NODE_ENV === 'test'){
+                    res.send(user.user_id)
+                  }
                   res.render('register', { "statusMsg": req.flash("statusMsg")});
               }
             } catch (error) {
@@ -80,7 +83,7 @@ const config = require("../config/auth.config");
                   let findUser = await UserService.loginUser(username,password);
                   if(findUser instanceof Object){
                     var token = jwt.sign({ id: findUser.user_id }, config.secret, {
-                      expiresIn: 86400 // 24 hours
+                      expiresIn: 86400 // 2.4 hours
                     });
                     res.cookie('token', token, {
                       maxAge: 3600000, httpOnly:true
