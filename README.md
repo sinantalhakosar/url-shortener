@@ -38,6 +38,18 @@ To start the project, which creates tables and relations and serve the project o
 
 4- Project is ready to use, to understand the written code please check the comments in the code.
 
+### DB Setup for Docker
+1- Create docker-compose.yml[(see configure docker-compose section)](https://medium.com/analytics-vidhya/getting-started-with-postgresql-using-docker-compose-34d6b808c47c) having credentials above and run followings:
+```bash
+$ docker run -d -p 5432:5432 --name my-postgres -e POSTGRES_PASSWORD=mysecretpassword postgres
+$ docker exec -it my-postgres bash
+$ psql -U postgres
+$ CREATE USER sinan SUPERUSER;
+$ ALTER USER user_name WITH PASSWORD 'kosar';
+$ CREATE DATABASE urlshortener;
+```
+after that PostgreSQL container is ready to connect with localhost and port 5432
+
 ## Additonal Notes
 
 If you want to build project inside a server please check auth.config.js file, remove this file and write secret to .env file in the project and change imports.
